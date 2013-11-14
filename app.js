@@ -82,10 +82,11 @@ function progressGame() {
 
 function makeOnlyColumnsVisible(whichColumns, grid) {
 	newColData = grid.columns;
+	newStore = grid.store;
 	for (i = 0; i < whichColumns.items.length; i++) {
 		newColData[i].hidden = (whichColumns.indexOf(newColData[i].text) > -1);
 	}
-	grid.reconfigure(grid.store, newColData);
+	grid.reconfigure(newStore, newColData);
 }
 
 Ext.application({
