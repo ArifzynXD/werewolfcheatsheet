@@ -8,15 +8,13 @@ Ext.define('User', {
 myLocalStore = Ext.create('Ext.state.LocalStorageProvider');
 gameState = myLocalStore.get('wolves');
 if (gameState == null) {
-	gamestate = {}
-	gameState.running = false;
-	gameState.night = 0;
-	gameState.players = [
+	gamestate = {running: false, night: 0, players:
+	[
 		{ name: 'Martyn', role1: 'Werewolf', role2: 'Villager', deaths: 0, lover1: false, lover2: false },
 		{ name: 'Jen', role1: 'Villager', role2: 'Villager', deaths: 0, lover1: false, lover2: false },
 		{ name: 'Helena', role1: 'Seer', role2: 'Villager', deaths: 0, lover1: false, lover2: false },
 		{ name: 'Paul', role1: 'Healer', role2: 'Villager', deaths: 0, lover1: false, lover2: false }
-	]
+	]}
 }
 
 var roleStore = Ext.create('Ext.data.ArrayStore',{
