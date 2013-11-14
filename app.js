@@ -49,6 +49,7 @@ var cellEditor = Ext.create('Ext.grid.plugin.CellEditing', {
 
 function addPlayer() {
 	userStore.add({ name: 'Someone', role1: 'Villager', role2: 'Villager', deaths: 0, lover1: false, lover2: false });
+	saveState();
 }
 
 function saveState(changes) {
@@ -134,6 +135,7 @@ Ext.application({
 						icon: 'path',
 						handler: function(grid,rowIndex,colIndex) {
 							userStore.removeAt(rowIndex);
+							saveState();
 						}
 					}],
 				}
