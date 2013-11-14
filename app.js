@@ -47,13 +47,41 @@ var cellEditor = Ext.create('Ext.grid.plugin.CellEditing', {
 	clicksToEdit: 1
 })
 
+function addPlayer() {
+	userStore.add({ name: 'Someone', role1: 'Villager', role2: 'Villager', deaths: 0, lover1: false, lover2: false });
+}
+
+function saveState() {
+	var storeData = [];
+	for (var rowno = 0; rowno < changes.store.data.items.length; rowno++) {
+		storeData.push(changes.store.data.items[rowno].data)
+	}
+	myLocalStore.set('wolves',storeData);
+}
+
 Ext.application({
     name: 'HelloExt',
     launch: function() {
+		var viewPort = Ext.create('Ext.container.Viewport', {
+			items: [{
+				region: 'north',
+				html: '<p id="gamestatus">Game not running</p><p><a href="#" onclick="addPlayer();" id="addplayer">Add Player</a><br/><a href="#" id="gameprogress" onclick="progressGame();">Start First Night</a></p>',
+				autoHeight: true,
+				border: false,
+				margins: '0 0 0 0'
+			},{
+				region: 'south',
+				html: null,
+				autoHeight: true,
+				border: false,
+				margins: '0 0 0 0'
+			}
+			]
+		})
 		userGrid = Ext.create('Ext.grid.Panel', {
 			selType: 'cellmodel',
 			plugins: [cellEditor],
-			renderTo: Ext.getBody(),
+			region: 'south',
 			store: userStore,
 			width: 400,
 			height: 200,
@@ -71,15 +99,18 @@ Ext.application({
 					text: 'Role 1',
 					width: 150,
 					dataIndex: 'role1',
-					editor: combo
+					editor: combo,
+					hidden: true
 				},
 				{
 					text: 'Role 2',
 					flex: 1,
 					dataIndex: 'role2',
-					editor: combo
+					editor: combo,
+					hidden: true
 				},
 				{
+					text: 'Kill',
 					xtype: 'actioncolumn',
 					width: 40,
 					items: [{
@@ -88,18 +119,26 @@ Ext.application({
 							alert('click');
 						}
 					}],
+					hidden: true
+				},
+				{
+					text: 'Remove',
+					xtype: 'actioncolumn',
+					width: 40,
+					items: [{
+						icon: 'path',
+						handler: function(grid,rowIndex,colIndex) {
+							userStore.removeAt(rowIndex);
+						}
+					}],
 				}
 			]
 		});
+		viewPort.add(userGrid);
 		cellEditor.on({
 			scope: this,
 			afteredit: function(celleditor, changes, record, rowIndex) {
-				console.log(changes.store.data.items);
-				var storeData = [];
-				for (var rowno = 0; rowno < changes.store.data.items.length; rowno++) {
-					storeData.push(changes.store.data.items[rowno].data)
-				}
-				myLocalStore.set('wolves',storeData);
+				saveState();
 				return true;
 			}
 		});
