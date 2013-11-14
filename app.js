@@ -8,6 +8,7 @@ Ext.define('User', {
 myLocalStore = Ext.create('Ext.state.LocalStorageProvider');
 gameState = myLocalStore.get('wolves');
 if (gameState == null) {
+	gamestate = {}
 	gameState.running = false;
 	gameState.night = 0;
 	gameState.players = [
