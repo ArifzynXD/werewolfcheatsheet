@@ -77,7 +77,7 @@ function progressGame() {
 		userGrid.reconfigure(userStore,newColumns);
 	} else {
 		switch (gameState.night) {
-			0: //first night cometh
+			case 0: //first night cometh
 			break;
 			default: //any other night
 		}
