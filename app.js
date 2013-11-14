@@ -37,7 +37,7 @@ var combo = Ext.create('Ext.form.ComboBox',{
 	displayField: "role",
 });
 
-var userStore = Ext.create('Ext.data.Store', {
+userStore = Ext.create('Ext.data.Store', {
     model: 'User',
     data: fetchedData,
     autosync: true,
@@ -52,9 +52,14 @@ function addPlayer() {
 }
 
 function saveState(changes) {
+	if (arguments.length == 0) {
+		iterateOver = userStore.data
+	} else {
+		iterateOver = changes.store.data
+	}
 	var storeData = [];
-	for (var rowno = 0; rowno < changes.store.data.items.length; rowno++) {
-		storeData.push(changes.store.data.items[rowno].data)
+	for (var rowno = 0; rowno < iterateOver.items.length; rowno++) {
+		storeData.push(iterateOver.items[rowno].data)
 	}
 	myLocalStore.set('wolves',storeData);
 }
