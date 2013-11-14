@@ -84,7 +84,7 @@ function makeOnlyColumnsVisible(whichColumns, grid) {
 	newColData = grid.columns;
 	newStore = grid.store;
 	for (i = 0; i < whichColumns.length; i++) {
-		newColData[i].hidden = (whichColumns.indexOf(newColData[i].text) = -1);
+		newColData[i].hidden = (whichColumns.indexOf(newColData[i].text) == -1);
 	}
 	grid.reconfigure(newStore, newColData);
 }
