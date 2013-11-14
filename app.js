@@ -51,7 +51,7 @@ function addPlayer() {
 	userStore.add({ name: 'Someone', role1: 'Villager', role2: 'Villager', deaths: 0, lover1: false, lover2: false });
 }
 
-function saveState() {
+function saveState(changes) {
 	var storeData = [];
 	for (var rowno = 0; rowno < changes.store.data.items.length; rowno++) {
 		storeData.push(changes.store.data.items[rowno].data)
@@ -138,7 +138,7 @@ Ext.application({
 		cellEditor.on({
 			scope: this,
 			afteredit: function(celleditor, changes, record, rowIndex) {
-				saveState();
+				saveState(changes);
 				return true;
 			}
 		});
