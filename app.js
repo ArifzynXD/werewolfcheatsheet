@@ -70,10 +70,7 @@ function saveState(changes) {
 function progressGame() {
 	if (!gameState.running) {
 		gameState.running = true;
-		var newColumns = userGrid.columns;
-		newColumns[1].hidden = false;
-		newColumns[2].hidden = false;
-		userGrid.reconfigure(userStore,newColumns);
+		makeOnlyColumnsVisible(['Name','Role 1','Role 2'], userGrid);
 	} else {
 		switch (gameState.night) {
 			case 0: //first night cometh
@@ -81,6 +78,14 @@ function progressGame() {
 			default: //any other night
 		}
 	}
+}
+
+function makeOnlyColumnsVisible(whichColumns, grid) {
+	newColData = grid.columns;
+	for (i = 0; i < whichColumns.items.length; i++) {
+		newColData[i].hidden = (whichColumns.indexOf(newColData[i].text) > -1);
+	}
+	grid.reconfigure(grid.store, newColData);
 }
 
 Ext.application({
