@@ -6,15 +6,17 @@ Ext.define('User', {
     fields: [ 'name', 'role1', 'role2' ]
 });
 myLocalStore = Ext.create('Ext.state.LocalStorageProvider');
-var fetchedData = myLocalStore.get('wolves');
-if (fetchedData == null) {
-	fetchedData = [
-        { name: 'Martyn', role1: 'Werewolf', role2: 'Villager', deaths: 0, lover1: false, lover2: false },
-        { name: 'Jen', role1: 'Villager', role2: 'Villager', deaths: 0, lover1: false, lover2: false },
-        { name: 'Helena', role1: 'Seer', role2: 'Villager', deaths: 0, lover1: false, lover2: false },
-        { name: 'Paul', role1: 'Healer', role2: 'Villager', deaths: 0, lover1: false, lover2: false }
-    ]
-};
+gameState = myLocalStore.get('wolves');
+if (gameState == null) {
+	gameState.running = false;
+	gameState.night = 0;
+	gameState.players = [
+		{ name: 'Martyn', role1: 'Werewolf', role2: 'Villager', deaths: 0, lover1: false, lover2: false },
+		{ name: 'Jen', role1: 'Villager', role2: 'Villager', deaths: 0, lover1: false, lover2: false },
+		{ name: 'Helena', role1: 'Seer', role2: 'Villager', deaths: 0, lover1: false, lover2: false },
+		{ name: 'Paul', role1: 'Healer', role2: 'Villager', deaths: 0, lover1: false, lover2: false }
+	]
+}
 
 var roleStore = Ext.create('Ext.data.ArrayStore',{
 	fields: [ "role" ],
@@ -39,7 +41,7 @@ var combo = Ext.create('Ext.form.ComboBox',{
 
 userStore = Ext.create('Ext.data.Store', {
     model: 'User',
-    data: fetchedData,
+    data: gameState.players,
     autosync: true,
 });
 
@@ -62,7 +64,24 @@ function saveState(changes) {
 	for (var rowno = 0; rowno < iterateOver.items.length; rowno++) {
 		storeData.push(iterateOver.items[rowno].data)
 	}
-	myLocalStore.set('wolves',storeData);
+	gameState.players = storeData;
+	myLocalStore.set('wolves',gameState);
+}
+
+function progressGame() {
+	if (!gameState.running) {
+		gameState.running = true;
+		var newColumns = userGrid.columns;
+		newColumns[1].hidden = false;
+		newColumns[2].hidden = false;
+		userGrid.reconfigure(userStore,newColumns);
+	} else {
+		switch (gameState.night) {
+			0: //first night cometh
+			break;
+			default: //any other night
+		}
+	}
 }
 
 Ext.application({
