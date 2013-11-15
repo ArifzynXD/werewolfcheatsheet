@@ -10,10 +10,10 @@ gameState = myLocalStore.get('wolves');
 if (gameState == null) {
 	gameState = {running: false, night: 0, players:
 	[
-		{ name: 'Martyn', role1: 'Werewolf', role2: 'Villager', state: "Alive", deaths: 0, lover1: false, lover2: false },
-		{ name: 'Jen', role1: 'Villager', role2: 'Villager', state: "Alive", deaths: 0, lover1: false, lover2: false },
-		{ name: 'Helena', role1: 'Seer', role2: 'Villager', state: "Alive", deaths: 0, lover1: false, lover2: false },
-		{ name: 'Paul', role1: 'Healer', role2: 'Villager', state: "Alive", deaths: 0, lover1: false, lover2: false }
+		{ name: 'Martyn', role1: 'Werewolf', role2: 'Villager', state: "Alive", deaths: 0, lover1: null, lover2: null },
+		{ name: 'Jen', role1: 'Villager', role2: 'Villager', state: "Alive", deaths: 0, lover1: null, lover2: null },
+		{ name: 'Helena', role1: 'Seer', role2: 'Villager', state: "Alive", deaths: 0, lover1: null, lover2: null },
+		{ name: 'Paul', role1: 'Healer', role2: 'Villager', state: "Alive", deaths: 0, lover1: null, lover2: null }
 	]}
 }
 
@@ -49,7 +49,22 @@ var cellEditor = Ext.create('Ext.grid.plugin.CellEditing', {
 })
 
 function addPlayer() {
-	userStore.add({ name: 'Someone', role1: 'Villager', role2: 'Villager', state: "Alive", deaths: 0, lover1: false, lover2: false });
+	userStore.add({ name: 'Someone', role1: 'Villager', role2: 'Villager', state: "Alive", deaths: 0, lover1: null, lover2: null });
+	saveState();
+}
+
+function killPlayer(rowIndex) {
+	var playerData = userStore.data.items[rowIndex].data;
+	playerData.deaths++;
+	if ((playerData.role1 == 'Villager') && (playerData.role1 == 'Villager')) {
+		var deathsNeeded = 2;
+	} else {
+		var deathsNeeded = 1;
+	}
+	if (playerData.deaths >= deathsNeeded) {
+		playerData.state = 'Dead';
+	}
+	makeOnlyColumnsVisible(['Name','State','Deaths','Role 1','Role 2','Kill'], userGrid);
 	saveState();
 }
 
@@ -100,8 +115,8 @@ function progressGame() {
 				for (var i = 0; i < userStore.data.items.length; i++) {
 					userStore.data.items[i].data.deaths = 0;
 					userStore.data.items[i].data.state = 'Alive';
-					userStore.data.items[i].data.lover1 = false;
-					userStore.data.items[i].data.lover2 = false;
+					userStore.data.items[i].data.lover1 = null;
+					userStore.data.items[i].data.lover2 = null;
 					userStore.data.items[i].data.role1 = 'Villager';
 					userStore.data.items[i].data.role2 = 'Villager';
 				}
@@ -208,18 +223,62 @@ Ext.application({
 					itemId: 'role2Column'
 				},
 				{
+					text: 'Lover 1',
+					flex: 1,
+					dataIndex: 'lover1',
+					hideable: true,
+					hidden: false,
+					itemId: 'lover1Column'
+				},
+				{
+					text: 'Lover 2',
+					flex: 1,
+					dataIndex: 'lover2',
+					hideable: true,
+					hidden: false,
+					itemId: 'lover2Column'
+				},
+				{
 					text: 'Kill',
 					xtype: 'actioncolumn',
 					width: 40,
 					items: [{
 						icon: 'path',
 						handler: function(grid,rowIndex,colIndex) {
-							alert('click');
+							killPlayer(rowIndex);
 						}
 					}],
 					hideable: true,
 					hidden: false,
 					itemId: 'killColumn'
+				},
+				{
+					text: 'Make L1',
+					xtype: 'actioncolumn',
+					width: 40,
+					items: [{
+						icon: 'path',
+						handler: function(grid,rowIndex,colIndex) {
+							makeLover(rowIndex,1);
+						}
+					}],
+					hideable: true,
+					hidden: false,
+					itemId: 'makeL1Column'
+				},
+				{
+					text: 'Make L2',
+					xtype: 'actioncolumn',
+					width: 40,
+					items: [{
+						icon: 'path',
+						handler: function(grid,rowIndex,colIndex) {
+							makeLover(rowIndex,2);
+						}
+					}],
+					hideable: true,
+					hidden: false,
+					itemId: 'makeL2Column'
 				},
 				{
 					text: 'Remove',
