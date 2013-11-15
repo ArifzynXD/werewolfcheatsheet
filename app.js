@@ -53,6 +53,46 @@ function addPlayer() {
 	saveState();
 }
 
+function countLovers(loverNumber) {
+	var count = 0;
+	for (var i = 0; i < userStore.data.items.length; i++) {
+		if (loverNumber == 1) {
+			if (userStore.data.items[i].data.lover1 != null) {
+				count++;
+			}
+		} else {
+			if (userStore.data.items[i].data.lover2 != null) {
+				count++;
+			}
+		}
+	}
+	return count;
+}
+
+function makeLover(rowIndex,loverNumber) {
+	var playerData = userStore.data.items[rowIndex].data;
+	// if no lovers selected or more than 1 - reset or not started
+	console.log(countLovers(loverNumber));
+	if (countLovers(loverNumber) == 0 || countLovers(loverNumber) > 1) {
+		lastSelectedLover = rowIndex;
+		if (loverNumber == 1) {
+			playerData.lover1 = true;
+		} else {
+			playerData.lover2 = true;
+		}
+	} else {
+		if (loverNumber == 1) {
+			console.log(lastSelectedLover);
+			playerData.lover1 = userStore.data.items[lastSelectedLover].data.name;
+			userStore.data.items[lastSelectedLover].data.lover1 = playerData.name;
+			console.log(userStore.data.items[lastSelectedLover].data.name + ' = ' + playerData.name);
+		} else {
+			playerData.lover2 = userStore.data.items[lastSelectedLover].data.name;
+			userStore.data.items[lastSelectedLover].data.lover2 = playerData.name;
+		}
+	}
+}
+
 function killPlayer(rowIndex) {
 	var playerData = userStore.data.items[rowIndex].data;
 	playerData.deaths++;
@@ -92,10 +132,10 @@ function updateInterface() {
 		Ext.get('gamestatus').dom.innerHTML = 'Game in progress';
 		Ext.get('addplayer').hide();
 		if (gameState.night == 0) {
-			makeOnlyColumnsVisible(['Name','Role 1','Role 2'], userGrid);
+			makeOnlyColumnsVisible(['Name','Role 1','Role 2','Make L1','Make L2'], userGrid);
 			Ext.get('gameprogress').dom.innerHTML = 'Noted roles. Progress Night.';
 		} else {
-			makeOnlyColumnsVisible(['Name','State','Deaths','Role 1','Role 2','Kill'], userGrid);
+			makeOnlyColumnsVisible(['Name','State','Deaths','Role 1','Role 2','Lover 1','Lover 2','Kill'], userGrid);
 			Ext.get('gameprogress').dom.innerHTML = 'Restart game';
 		}
 	}
