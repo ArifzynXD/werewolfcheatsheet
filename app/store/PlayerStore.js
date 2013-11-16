@@ -8,8 +8,7 @@ Ext.define('TouchWolf.store.PlayerStore',{
         storeId: 'playerStore',
         model: 'TouchWolf.model.Player',
 
-        data: [ {name: 'Hello'}, {name: 'World'} ]
-        /*proxy: {
+        proxy: {
             type: 'localstorage',
             id: 'touchwolfplayers'
         },
@@ -17,7 +16,7 @@ Ext.define('TouchWolf.store.PlayerStore',{
             load: function() {
                 console.log('loading players');
             }
-        }*/
+        }
     }
 
 });

@@ -1,10 +1,40 @@
 Ext.define('TouchWolf.view.PlayerList', {
-    extend: 'Ext.dataview.List',
+    requires: ['TouchWolf.view.PlayerListItem'],
+    extend: 'Ext.dataview.DataView',
     xtype: 'playerlist',
-    config: {
-        itemTpl: '<div>{name}</div>',
+    config: {/*
+        itemTpl:
+            Ext.create('Ext.Container',
+                {
+                    xyzzy: '{name}',
+                    items: [
+                    {
+                        xtype: 'label',
+                        html: '{name}',
+                        docked: 'left'
+                    },
+                    {
+                        xtype: 'button',
+                        text: 'Remove',
+                        flex: 1,
+                        width: 100,
+                        docked: 'right',
+                        listeners: {
+                            tap: function (b) {
+                                lastbutton = b;
+                            }
+                        }
+                    }
+                ] }).element.dom.outerHTML,*/
+        useComponents: true,
+        defaultType: 'playerlistitem',
         itemId: 'test',
-        store: 'playerStore'
-
+        store: 'playerStore',
+        listeners: {
+            painted: function(l) {
+                l.store = Ext.getStore('playerStore');
+                l.store.load();
+            }
+        }
     }
 });

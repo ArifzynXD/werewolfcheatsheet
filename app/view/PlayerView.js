@@ -26,7 +26,7 @@ Ext.define('TouchWolf.view.PlayerView', {
                             var store = Ext.getStore('playerStore');
                             store.data.add(player);
                             store.sync();
-
+                            store.load();
                         }
                     }
                 },
@@ -40,6 +40,7 @@ Ext.define('TouchWolf.view.PlayerView', {
                             var store = Ext.getStore('playerStore');
                             store.clearData();
                             store.sync();
+                            store.load();
                         }
                     }
                 }

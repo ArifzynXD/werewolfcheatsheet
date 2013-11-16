@@ -49,10 +49,7 @@ Ext.application({
         Ext.fly('appLoadingIndicator').destroy();
 
         // Initialize the main view
-       /* list = Ext.create('TouchWolf.view.numptyList');
-        console.log(list);
-        Ext.Viewport.add(list);
-      //  */ Ext.Viewport.add(Ext.create('TouchWolf.view.Main'));
+        Ext.Viewport.add(Ext.create('TouchWolf.view.Main'));
 
         // Development code here
     },
