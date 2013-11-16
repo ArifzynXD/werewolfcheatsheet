@@ -1,7 +1,7 @@
 Ext.define('TouchWolf.view.RolesView', {
     extend: 'Ext.Container',
     xtype: 'rolesview',
-    requires: [ 'TouchWolf.view.PlayerList' ],
+    requires: [ 'TouchWolf.view.PlayerRoleListItem', 'TouchWolf.view.PlayerRoleList' ],
     config: {items: [
         {
             xtype: 'toolbar',
@@ -15,30 +15,21 @@ Ext.define('TouchWolf.view.RolesView', {
                 },
                 {
                     xtype: 'button',
-                    iconCls: 'add',
+                    iconCls: 'delete',
                     ui: 'plain',
                     listeners: {
                         tap: function (button, e, eOpts) {
-                            console.log('addplayer pressed');
-                            var player = Ext.create('TouchWolf.model.Player', {
-                                name: 'Player'
-                            });
+                            console.log('clear pressed');
                             var store = Ext.getStore('playerStore');
-                            store.data.add(player);
-                            store.sync();
-                            store.load();
-                        }
-                    }
-                },
-                {
-                    xtype: 'button',
-                    iconCls: 'team',
-                    ui: 'plain',
-                    listeners: {
-                        tap: function (button, e, eOpts) {
-                            console.log('clearall pressed');
-                            var store = Ext.getStore('playerStore');
-                            store.clearData();
+                            Ext.iterate(store.data,function(key,value) {
+                                record = store.getAt(value);
+                                record.set('role1','Villager');
+                                record.set('role2','Villager');
+                                record.set('lover1',null);
+                                record.set('lover2',null);
+                                record.set('deaths',0);
+                                record.set('status','Alive');
+                            })
                             store.sync();
                             store.load();
                         }
@@ -47,9 +38,12 @@ Ext.define('TouchWolf.view.RolesView', {
 
             ]
         }, {
-            xtype: 'playerlist',
+            xtype: 'playerrolelist',
             flex: 1,
-            height:9999999
+            height:9999999,
+            config: {
+                defaulttype: 'playerrolelistitem'
+            }
         }
     ]}
 });
