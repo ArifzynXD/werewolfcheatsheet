@@ -1,7 +1,7 @@
 
 Ext.define('TouchWolf.view.PlayerRoleListItem', {
     extend: 'Ext.dataview.component.DataItem',
-    requires: ['Ext.Button', 'Ext.Spacer', 'Ext.field.Select'],
+    requires: ['Ext.Button', 'Ext.field.Select'],
     xtype: 'playerrolelistitem',
 
     config: {
@@ -14,14 +14,14 @@ Ext.define('TouchWolf.view.PlayerRoleListItem', {
         },
         items: [{
             xtype: 'label',
-            flex: 1,
+            flex: 3,
             html: 'name',
             itemId: 'textCmp',
-            padding: 10,
-            width: 5
+            padding: 10
         },{
             xtype: 'selectfield',
             itemId: 'role1',
+            flex: 8,
             options: [
                 {text: 'Villager', value: 'Villager'},
                 {text: 'Werewolf', value: 'Werewolf'},
@@ -42,11 +42,9 @@ Ext.define('TouchWolf.view.PlayerRoleListItem', {
                 }
             }
         },{
-            xtype: 'spacer',
-            flex: 1
-        },{
             xtype: 'selectfield',
             itemId: 'role2',
+            flex: 8,
             options: [
                 {text: 'Villager', value: 'Villager'},
                 {text: 'Werewolf', value: 'Werewolf'},
@@ -67,12 +65,10 @@ Ext.define('TouchWolf.view.PlayerRoleListItem', {
                 }
             }
         },{
-            xtype: 'spacer',
-            flex: 1
-        },{
             xtype: 'selectfield',
             itemId: 'lover1',
-            label: 'Lover1',
+            label: '&#x2764;1',
+            flex: 10,
             options: [
                 {text: 'Noone', value: 'Noone'}
             ],
@@ -85,9 +81,6 @@ Ext.define('TouchWolf.view.PlayerRoleListItem', {
                     Ext.getStore('playerStore').sync();
                 }
             }
-        },{
-            xtype: 'spacer',
-            flex: 1
         }]
     },updateRecord: function(record) {
         me = this;
