@@ -76,9 +76,21 @@ Ext.define('TouchWolf.view.PlayerRoleListItem', {
             valueField: 'value',
             listeners: {
                 'change': function(me,newValue,oldValue,eOpts) {
-                    var rec = me.getData().record;
-                    rec.set('lover1',newValue);
-                    Ext.getStore('playerStore').sync();
+                    if (newValue !== null) {
+                        var rec = me.getData().record;
+                        rec.set('lover1',newValue);
+                        var loverrecord = Ext.getStore('playerStore').findRecord('name',newValue);
+                        if (loverrecord.get('lover1') !== rec.get('name')) {
+                            Ext.getStore('playerStore').each(function(record) {
+                                var checkname = record.get('name');
+                                if ((checkname !== rec.get('name')) && (checkname !== newValue) && (record.get('lover1') !== null)) {
+                                    record.set('lover1',null);
+                                }
+                            });
+                            loverrecord.set('lover1',rec.get('name'));
+                        }
+                        Ext.getStore('playerStore').sync();
+                    }
                 }
             }
         },{
@@ -93,9 +105,21 @@ Ext.define('TouchWolf.view.PlayerRoleListItem', {
             valueField: 'value',
             listeners: {
                 'change': function(me,newValue,oldValue,eOpts) {
-                    var rec = me.getData().record;
-                    rec.set('lover2',newValue);
-                    Ext.getStore('playerStore').sync();
+                    if (newValue !== null) {
+                        var rec = me.getData().record;
+                        rec.set('lover2',newValue);
+                        var loverrecord = Ext.getStore('playerStore').findRecord('name',newValue);
+                        if (loverrecord.get('lover2') !== rec.get('name')) {
+                            Ext.getStore('playerStore').each(function(record) {
+                                var checkname = record.get('name');
+                                if ((checkname !== rec.get('name')) && (checkname !== newValue) && (record.get('lover2') !== null)) {
+                                    record.set('lover2',null);
+                                }
+                            });
+                            loverrecord.set('lover2',rec.get('name'));
+                        }
+                        Ext.getStore('playerStore').sync();
+                    }
                 }
             }
         }]
