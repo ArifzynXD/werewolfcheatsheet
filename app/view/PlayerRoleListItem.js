@@ -36,9 +36,9 @@ Ext.define('TouchWolf.view.PlayerRoleListItem', {
             valueField: 'value',
             listeners: {
                 'change': function(me,newValue,oldValue,eOpts) {
-                        rec = me.getData().record;
-                        rec.set('role1',newValue);
-                        Ext.getStore('playerStore').sync();
+                    rec = me.getData().record;
+                    rec.set('role1',newValue);
+                    Ext.getStore('playerStore').sync();
                 }
             }
         },{
@@ -78,6 +78,23 @@ Ext.define('TouchWolf.view.PlayerRoleListItem', {
                 'change': function(me,newValue,oldValue,eOpts) {
                     rec = me.getData().record;
                     rec.set('lover1',newValue);
+                    Ext.getStore('playerStore').sync();
+                }
+            }
+        },{
+            xtype: 'selectfield',
+            itemId: 'lover2',
+            label: '&#x2764;2',
+            flex: 10,
+            options: [
+                {text: 'Noone', value: 'Noone'}
+            ],
+            displayField: 'text',
+            valueField: 'value',
+            listeners: {
+                'change': function(me,newValue,oldValue,eOpts) {
+                    rec = me.getData().record;
+                    rec.set('lover2',newValue);
                     Ext.getStore('playerStore').sync();
                 }
             }
@@ -127,6 +144,18 @@ Ext.define('TouchWolf.view.PlayerRoleListItem', {
             }
             if (lover1field.getOptions !== lovers) {
                 lover1field.setOptions(lovers);
+            }
+        }
+        lover2field = me.down('#lover2');
+        if (lover2field !== null) {
+            if (lover2field.getData !== data) {
+                lover2field.setData(data);
+            }
+            if (lover2field.getValue() !== record.get('lover2')) {
+                lover2field.setValue(record.get('lover2'));
+            }
+            if (lover2field.getOptions !== lovers) {
+                lover2field.setOptions(lovers);
             }
         }
 
