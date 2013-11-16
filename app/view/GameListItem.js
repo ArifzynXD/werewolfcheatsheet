@@ -67,6 +67,16 @@ Ext.define('TouchWolf.view.GameListItem', {
                             }
                             loverrecord.set('status', 'Dead');
                             loverrecord.set('deaths', 69);
+                            if (loverrecord.get('lover2') !== null) {
+                                deathmessage += loverrecord.get('lover2') + ' dies of a broken heart! '
+                                var chainloverrecord = Ext.getStore('playerStore').findRecord('name',loverrecord.get('lover2'));
+                                // Dear gods - if we ever run triples I'll have to make this recursive!
+                                if ((chainloverrecord.get('role1') == 'Hunter') || (chainloverrecord.get('role2') == 'Hunter')) {
+                                    hunters.push(lovername);
+                                }
+                                chainloverrecord.set('status', 'Dead');
+                                chainloverrecord.set('deaths', 69);
+                            }
                         }
                         var lovername = record.get('lover2');
                         if (lovername !== null) {
@@ -78,6 +88,16 @@ Ext.define('TouchWolf.view.GameListItem', {
                                 }
                                 loverrecord.set('status', 'Dead');
                                 loverrecord.set('deaths', 69);
+                                if (loverrecord.get('lover1') !== null) {
+                                    deathmessage += loverrecord.get('lover1') + ' dies of a broken heart! '
+                                    var chainloverrecord = Ext.getStore('playerStore').findRecord('name',loverrecord.get('lover1'));
+                                    // Dear gods - if we ever run triples I'll have to make this recursive!
+                                    if ((chainloverrecord.get('role1') == 'Hunter') || (chainloverrecord.get('role2') == 'Hunter')) {
+                                        hunters.push(lovername);
+                                    }
+                                    chainloverrecord.set('status', 'Dead');
+                                    chainloverrecord.set('deaths', 69);
+                                }
                             }
                         }
                         if (hunters.length > 0) {
