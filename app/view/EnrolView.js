@@ -49,7 +49,7 @@ Ext.define('TouchWolf.view.EnrolView', {
         }, {
             xtype: 'playerlist',
             flex: 1,
-            height:9999999
+            height: '100%'
         }
     ]}
 });

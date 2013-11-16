@@ -40,7 +40,7 @@ Ext.define('TouchWolf.view.RolesView', {
         }, {
             xtype: 'playerrolelist',
             flex: 1,
-            height:9999999,
+            height: '100%',
             config: {
                 defaulttype: 'playerrolelistitem'
             }
