@@ -21,7 +21,7 @@ Ext.define('TouchWolf.view.RolesView', {
                         tap: function (button, e, eOpts) {
                             var store = Ext.getStore('playerStore');
                             Ext.iterate(store.data,function(key,value) {
-                                record = store.getAt(value);
+                                var record = store.getAt(value);
                                 record.set('role1','Villager');
                                 record.set('role2','Villager');
                                 record.set('lover1',null);

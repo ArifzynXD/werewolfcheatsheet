@@ -37,9 +37,9 @@ Ext.define('TouchWolf.view.PlayerEnrolListItem', {
             }
         }]
     },updateRecord: function(record) {
-        me = this;
+        var me = this;
 
-        data = me.down('#btn').getData();
+        var data = me.down('#btn').getData();
         if (data == null) {
             data = {record : record}
         } else {
