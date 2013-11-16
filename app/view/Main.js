@@ -5,7 +5,8 @@ Ext.define('TouchWolf.view.Main', {
         'Ext.TitleBar',
         'Ext.Label',
         'TouchWolf.view.EnrolView',
-        'TouchWolf.view.RolesView'
+        'TouchWolf.view.RolesView',
+        'TouchWolf.view.GameView'
     ],
     config: {
         tabBarPosition: 'bottom',
@@ -63,6 +64,11 @@ Ext.define('TouchWolf.view.Main', {
                 title: 'Roles',
                 iconCls: 'compose',
                 xtype: 'rolesview'
+            },
+            {
+                title: 'Play!',
+                iconCls: 'star',
+                xtype: 'gameview'
             }
 
         ]
