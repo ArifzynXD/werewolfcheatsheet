@@ -1,6 +1,6 @@
-Ext.define('TouchWolf.view.PlayerView', {
+Ext.define('TouchWolf.view.EnrolView', {
     extend: 'Ext.Container',
-    xtype: 'playerview',
+    xtype: 'enrolview',
     requires: [ 'TouchWolf.view.PlayerList' ],
     config: {items: [
         {
@@ -32,7 +32,7 @@ Ext.define('TouchWolf.view.PlayerView', {
                 },
                 {
                     xtype: 'button',
-                    iconCls: 'team',
+                    iconCls: 'trash',
                     ui: 'plain',
                     listeners: {
                         tap: function (button, e, eOpts) {

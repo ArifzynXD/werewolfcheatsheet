@@ -4,8 +4,8 @@ Ext.define('TouchWolf.view.Main', {
     requires: [
         'Ext.TitleBar',
         'Ext.Label',
-        'TouchWolf.view.PlayerView',
-        'TouchWolf.view.PlayerList'
+        'TouchWolf.view.EnrolView',
+        'TouchWolf.view.RolesView'
     ],
     config: {
         tabBarPosition: 'bottom',
@@ -57,7 +57,12 @@ Ext.define('TouchWolf.view.Main', {
             {
                 title: 'Enrol',
                 iconCls: 'add',
-                xtype: 'playerview'
+                xtype: 'enrolview'
+            },
+            {
+                title: 'Roles',
+                iconCls: 'compose',
+                xtype: 'rolesview'
             }
 
         ]

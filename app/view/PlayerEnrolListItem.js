@@ -1,8 +1,8 @@
 
-Ext.define('TouchWolf.view.PlayerListItem', {
+Ext.define('TouchWolf.view.PlayerEnrolListItem', {
     extend: 'Ext.dataview.component.DataItem',
     requires: ['Ext.Button'],
-    xtype: 'playerlistitem',
+    xtype: 'playerenrollistitem',
 
     config: {
         padding: 10,

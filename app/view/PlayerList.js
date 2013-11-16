@@ -1,5 +1,5 @@
 Ext.define('TouchWolf.view.PlayerList', {
-    requires: ['TouchWolf.view.PlayerListItem'],
+    requires: ['TouchWolf.view.PlayerEnrolListItem'],
     extend: 'Ext.dataview.DataView',
     xtype: 'playerlist',
     config: {/*
@@ -27,7 +27,7 @@ Ext.define('TouchWolf.view.PlayerList', {
                     }
                 ] }).element.dom.outerHTML,*/
         useComponents: true,
-        defaultType: 'playerlistitem',
+        defaultType: 'playerenrollistitem',
         itemId: 'test',
         store: 'playerStore',
         listeners: {
