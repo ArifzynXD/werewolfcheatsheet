@@ -19,7 +19,6 @@ Ext.define('TouchWolf.view.RolesView', {
                     ui: 'plain',
                     listeners: {
                         tap: function (button, e, eOpts) {
-                            console.log('clear pressed');
                             var store = Ext.getStore('playerStore');
                             Ext.iterate(store.data,function(key,value) {
                                 record = store.getAt(value);

@@ -11,11 +11,6 @@ Ext.define('TouchWolf.store.PlayerStore',{
         proxy: {
             type: 'localstorage',
             id: 'touchwolfplayers'
-        },
-        listeners: {
-            load: function() {
-                console.log('loading players');
-            }
         }
     }
 

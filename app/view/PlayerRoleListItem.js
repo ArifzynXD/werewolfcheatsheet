@@ -122,7 +122,6 @@ Ext.define('TouchWolf.view.PlayerRoleListItem', {
         store.each(function (item, index, length) {
             lovers.push({text:item.data.name,value:item.data.name});
         });
-        console.log(lovers);
         lover1field = me.down('#lover1');
         if (lover1field !== null) {
             if (lover1field.getData !== data) {

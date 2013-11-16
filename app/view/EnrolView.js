@@ -19,7 +19,6 @@ Ext.define('TouchWolf.view.EnrolView', {
                     ui: 'plain',
                     listeners: {
                         tap: function (button, e, eOpts) {
-                            console.log('addplayer pressed');
                             var player = Ext.create('TouchWolf.model.Player', {
                                 name: 'Player'
                             });
@@ -36,7 +35,6 @@ Ext.define('TouchWolf.view.EnrolView', {
                     ui: 'plain',
                     listeners: {
                         tap: function (button, e, eOpts) {
-                            console.log('clearall pressed');
                             var store = Ext.getStore('playerStore');
                             store.clearData();
                             store.sync();
