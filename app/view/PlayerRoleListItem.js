@@ -36,7 +36,7 @@ Ext.define('TouchWolf.view.PlayerRoleListItem', {
             valueField: 'value',
             listeners: {
                 'change': function(me,newValue,oldValue,eOpts) {
-                    rec = me.getData().record;
+                    var rec = me.getData().record;
                     rec.set('role1',newValue);
                     Ext.getStore('playerStore').sync();
                 }
@@ -59,7 +59,7 @@ Ext.define('TouchWolf.view.PlayerRoleListItem', {
             valueField: 'value',
             listeners: {
                 'change': function(me,newValue,oldValue,eOpts) {
-                    rec = me.getData().record;
+                    var rec = me.getData().record;
                     rec.set('role2',newValue);
                     Ext.getStore('playerStore').sync();
                 }
@@ -76,7 +76,7 @@ Ext.define('TouchWolf.view.PlayerRoleListItem', {
             valueField: 'value',
             listeners: {
                 'change': function(me,newValue,oldValue,eOpts) {
-                    rec = me.getData().record;
+                    var rec = me.getData().record;
                     rec.set('lover1',newValue);
                     Ext.getStore('playerStore').sync();
                 }
@@ -93,23 +93,23 @@ Ext.define('TouchWolf.view.PlayerRoleListItem', {
             valueField: 'value',
             listeners: {
                 'change': function(me,newValue,oldValue,eOpts) {
-                    rec = me.getData().record;
+                    var rec = me.getData().record;
                     rec.set('lover2',newValue);
                     Ext.getStore('playerStore').sync();
                 }
             }
         }]
     },updateRecord: function(record) {
-        me = this;
+        var me = this;
 
-        data = me.down('#role1').getData();
+        var data = me.down('#role1').getData();
         if (data == null) {
             data = {record : record}
         } else {
             data.record = record;
         }
         me.down('#textCmp').setHtml(record.get('name'));
-        role1field = me.down('#role1');
+        var role1field = me.down('#role1');
         if (role1field !== null) {
             if (role1field.getData !== data) {
                 role1field.setData(data);
@@ -118,7 +118,7 @@ Ext.define('TouchWolf.view.PlayerRoleListItem', {
                 role1field.setValue(record.get('role1'));
             }
         }
-        role2field = me.down('#role2');
+        var role2field = me.down('#role2');
         if (role2field !== null) {
             if (role2field.getData !== data) {
                 role2field.setData(data);
@@ -127,14 +127,14 @@ Ext.define('TouchWolf.view.PlayerRoleListItem', {
                 role2field.setValue(record.get('role2'));
             }
         }
-        store = Ext.getStore('playerStore');
-        lovers = [{text:'Noone',value:null}];
+        var store = Ext.getStore('playerStore');
+        var lovers = [{text:'Noone',value:null}];
         store.each(function (item, index, length) {
             if (record.get('name') !== item.data.name) {
                 lovers.push({text:item.data.name,value:item.data.name});
             }
         });
-        lover1field = me.down('#lover1');
+        var lover1field = me.down('#lover1');
         if (lover1field !== null) {
             if (lover1field.getData !== data) {
                 lover1field.setData(data);
@@ -146,7 +146,7 @@ Ext.define('TouchWolf.view.PlayerRoleListItem', {
                 lover1field.setOptions(lovers);
             }
         }
-        lover2field = me.down('#lover2');
+        var lover2field = me.down('#lover2');
         if (lover2field !== null) {
             if (lover2field.getData !== data) {
                 lover2field.setData(data);
